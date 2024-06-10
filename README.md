@@ -13,3 +13,8 @@ Esta introdução foi organizada como parte das atividades inaugurais do **PET-L
 - a ferramenta Node-RED.
 
 Além de uma rápida visão conceitual destes elementos, serão realizadas algumas atividades práticas, na forma de roteiros dirigidos que permitirão uma visão abrangente das muitas possibilidades que **PET-Lab** pretende explorar!
+
+---
+
+PET Lab | Fatec Jundiaí
+<br/>2024-1
