@@ -2,6 +2,8 @@
 
 **PET-Lab** é a nome compacto do *Laboratório de Projetos Educacionais e de Tecnologia*, uma iniciativa da *Fatec Jundiaí*, uma das unidades do *Centro Paula Souza*, junto ao seu grupo de *Tecnologias Digitais* e em parceria com os *Caninos Loucos*.
 
+<img src='https://github.com/pet-lab-hub/intro/blob/main/background/sponsors.png?raw=true' alt='![Patrocinadores]' />
+
 O objetivo principal deste laboratório é explorar plataformas computacionais e tecnologias que, dentro do ambiente acadêmico, possam ser utilizadas em aplicações de Internet das Coisas, Robótica e Inteligência Artifical, para o desenvolvimento de conhecimentos, habilidades e atitudes necessárias à formação de profissionais competentes para atuar no mercado de trabalho e contribuir nas comunidades onde se insere.
 
 Esta introdução foi organizada como parte das atividades inaugurais do **PET-Lab** e pretende oferecer uma visão básica de alguns recursos que serão explorados em suas atividades:
