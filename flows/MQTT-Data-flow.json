@@ -1,0 +1,300 @@
+[
+    {
+        "id": "884d430cb0401c89",
+        "type": "tab",
+        "label": "MQTT Data",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2a827f48ee11ec29",
+        "type": "mqtt in",
+        "z": "884d430cb0401c89",
+        "name": "",
+        "topic": "esp-02/sensor/aht20/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "688c6b82baf3a5ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "579b15d0d21dc24a"
+            ]
+        ]
+    },
+    {
+        "id": "5e2519a0e9343299",
+        "type": "mqtt in",
+        "z": "884d430cb0401c89",
+        "name": "",
+        "topic": "esp-02/sensor/aht20/umid",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c7431d1ce76d95f7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "8974dfdb90aa5718"
+            ]
+        ]
+    },
+    {
+        "id": "579b15d0d21dc24a",
+        "type": "debug",
+        "z": "884d430cb0401c89",
+        "name": "Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8974dfdb90aa5718",
+        "type": "debug",
+        "z": "884d430cb0401c89",
+        "name": "Umidade",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bca89a9a4f7b1c4f",
+        "type": "mqtt in",
+        "z": "884d430cb0401c89",
+        "name": "",
+        "topic": "esp-02/sensor/bmp280",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c7431d1ce76d95f7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "52c73021d3bcbc97",
+                "2604f7167ece0169"
+            ]
+        ]
+    },
+    {
+        "id": "52c73021d3bcbc97",
+        "type": "debug",
+        "z": "884d430cb0401c89",
+        "name": "Dados JSON",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2604f7167ece0169",
+        "type": "function",
+        "z": "884d430cb0401c89",
+        "name": "Extrai temperatura",
+        "func": "const obj = msg.payload;\nvar temp = obj.temperatura;\nmsg.payload = temp + '°C'\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 340,
+        "wires": [
+            [
+                "8031fd10c8d4500e"
+            ]
+        ]
+    },
+    {
+        "id": "8031fd10c8d4500e",
+        "type": "debug",
+        "z": "884d430cb0401c89",
+        "name": "Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "eb6af2ba58d1b02f",
+        "type": "mqtt out",
+        "z": "884d430cb0401c89",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c7431d1ce76d95f7",
+        "x": 470,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "df7a1fd0525a6f1a",
+        "type": "inject",
+        "z": "884d430cb0401c89",
+        "name": "Off",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "esp-01/atuador/relay",
+        "payload": "desligar",
+        "payloadType": "str",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "eb6af2ba58d1b02f"
+            ]
+        ]
+    },
+    {
+        "id": "2aaf0250ee580568",
+        "type": "inject",
+        "z": "884d430cb0401c89",
+        "name": "On",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "esp-01/atuador/relay",
+        "payload": "ligar",
+        "payloadType": "str",
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "eb6af2ba58d1b02f"
+            ]
+        ]
+    },
+    {
+        "id": "688c6b82baf3a5ec",
+        "type": "mqtt-broker",
+        "name": "Mosquitto Remoto",
+        "broker": "192.168.0.138",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c7431d1ce76d95f7",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

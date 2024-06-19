@@ -1,0 +1,104 @@
+[
+    {
+        "id": "78ea719049bf878e",
+        "type": "tab",
+        "label": "Ola!",
+        "disabled": false,
+        "info": "Um primeiro exemplo de fluxo no\nNode-RED para mostra interacao\nsimples com o usuario.\n\nUtiliza os nos:\n - inject\n -  debug",
+        "env": []
+    },
+    {
+        "id": "b16d2e48a6440579",
+        "type": "inject",
+        "z": "78ea719049bf878e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "8b6942420d337ad3"
+            ]
+        ]
+    },
+    {
+        "id": "8409177a67b2e8b5",
+        "type": "debug",
+        "z": "78ea719049bf878e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4a938932428741ac",
+        "type": "inject",
+        "z": "78ea719049bf878e",
+        "name": "Mensagem",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Um ola do Node-RED!",
+        "payloadType": "str",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "8409177a67b2e8b5"
+            ]
+        ]
+    },
+    {
+        "id": "8b6942420d337ad3",
+        "type": "function",
+        "z": "78ea719049bf878e",
+        "name": "Formatar Data/Hora",
+        "func": "var data = new Date(msg.payload);\nvar dia = data.getDate();\nvar mes = data.getMonth() + 1;\nvar ano = data.getFullYear();\nvar hor = data.getHours().toString().padStart(2, '0');\nvar min = data.getMinutes().toString().padStart(2, '0');\nmsg.payload = dia + '/' + mes + '/' + ano \n            + ' ' + hor + ':' + min;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 80,
+        "wires": [
+            [
+                "8409177a67b2e8b5"
+            ]
+        ]
+    }
+]

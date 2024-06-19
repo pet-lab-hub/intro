@@ -1,0 +1,230 @@
+[
+    {
+        "id": "ba926e435d2f64b5",
+        "type": "tab",
+        "label": "MQTT Count",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bf6b130959173398",
+        "type": "inject",
+        "z": "ba926e435d2f64b5",
+        "name": "Publicar",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "0c78d37e0ae093b0"
+            ]
+        ]
+    },
+    {
+        "id": "0c78d37e0ae093b0",
+        "type": "function",
+        "z": "ba926e435d2f64b5",
+        "name": "Contador",
+        "func": "// Recupera num_msg do contexto\nvar num_msg = context.get(\"num_msg\")\n// Incrementa valor\nnum_msg = num_msg + 1;\n// Salva num_msg no contexto\ncontext.set(\"num_msg\", num_msg);\n// Atualiza payload\nmsg.payload = num_msg;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"num_msg\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "ace6b8a00d09cda5",
+                "c82fdd5718923bfc"
+            ]
+        ]
+    },
+    {
+        "id": "ace6b8a00d09cda5",
+        "type": "mqtt out",
+        "z": "ba926e435d2f64b5",
+        "name": "",
+        "topic": "contagem",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c7431d1ce76d95f7",
+        "x": 560,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c82fdd5718923bfc",
+        "type": "debug",
+        "z": "ba926e435d2f64b5",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8d733747efba9502",
+        "type": "mqtt in",
+        "z": "ba926e435d2f64b5",
+        "name": "",
+        "topic": "contagem",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c7431d1ce76d95f7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "4c67258f4d48be77",
+                "d803c848ea9e2169"
+            ]
+        ]
+    },
+    {
+        "id": "4c67258f4d48be77",
+        "type": "debug",
+        "z": "ba926e435d2f64b5",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d803c848ea9e2169",
+        "type": "switch",
+        "z": "ba926e435d2f64b5",
+        "name": "",
+        "property": "msg.payload % 2",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "jsonata"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "932fb7b0f3a684aa"
+            ],
+            [
+                "5cb9284b1c9d4615"
+            ]
+        ]
+    },
+    {
+        "id": "932fb7b0f3a684aa",
+        "type": "debug",
+        "z": "ba926e435d2f64b5",
+        "name": "Par",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5cb9284b1c9d4615",
+        "type": "debug",
+        "z": "ba926e435d2f64b5",
+        "name": "Impar",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "c7431d1ce76d95f7",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
