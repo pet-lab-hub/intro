@@ -15,16 +15,17 @@
         "topic": "esp-02/sensor/aht20/temp",
         "qos": "2",
         "datatype": "auto-detect",
-        "broker": "688c6b82baf3a5ec",
+        "broker": "c7431d1ce76d95f7",
         "nl": false,
         "rap": true,
         "rh": 0,
         "inputs": 0,
         "x": 190,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
-                "579b15d0d21dc24a"
+                "579b15d0d21dc24a",
+                "f9c04661740c9300"
             ]
         ]
     },
@@ -42,7 +43,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 190,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
                 "8974dfdb90aa5718"
@@ -63,7 +64,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 430,
-        "y": 60,
+        "y": 80,
         "wires": []
     },
     {
@@ -80,7 +81,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 420,
-        "y": 160,
+        "y": 200,
         "wires": []
     },
     {
@@ -97,7 +98,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 180,
-        "y": 260,
+        "y": 280,
         "wires": [
             [
                 "52c73021d3bcbc97",
@@ -119,7 +120,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 430,
-        "y": 260,
+        "y": 280,
         "wires": []
     },
     {
@@ -134,7 +135,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 310,
         "y": 340,
         "wires": [
             [
@@ -155,7 +156,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 530,
         "y": 340,
         "wires": []
     },
@@ -174,7 +175,7 @@
         "expiry": "",
         "broker": "c7431d1ce76d95f7",
         "x": 470,
-        "y": 420,
+        "y": 400,
         "wires": []
     },
     {
@@ -199,7 +200,7 @@
         "payload": "desligar",
         "payloadType": "str",
         "x": 150,
-        "y": 460,
+        "y": 440,
         "wires": [
             [
                 "eb6af2ba58d1b02f"
@@ -228,7 +229,7 @@
         "payload": "ligar",
         "payloadType": "str",
         "x": 150,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "eb6af2ba58d1b02f"
@@ -236,10 +237,48 @@
         ]
     },
     {
-        "id": "688c6b82baf3a5ec",
+        "id": "f9c04661740c9300",
+        "type": "function",
+        "z": "884d430cb0401c89",
+        "name": "Controle de Temperatura",
+        "func": "if (msg.payload > 24) {\n    msg.payload = \"ligar\";\n} else {\n    msg.payload = \"desligar\";\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "d3ef69ed2107f023"
+            ]
+        ]
+    },
+    {
+        "id": "d3ef69ed2107f023",
+        "type": "mqtt out",
+        "z": "884d430cb0401c89",
+        "name": "",
+        "topic": "esp-01/atuador/relay",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "688c6b82baf3a5ec",
+        "x": 600,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c7431d1ce76d95f7",
         "type": "mqtt-broker",
-        "name": "Mosquitto Remoto",
-        "broker": "192.168.0.138",
+        "name": "Mosquitto",
+        "broker": "localhost",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -267,10 +306,10 @@
         "sessionExpiry": ""
     },
     {
-        "id": "c7431d1ce76d95f7",
+        "id": "688c6b82baf3a5ec",
         "type": "mqtt-broker",
-        "name": "Mosquitto",
-        "broker": "localhost",
+        "name": "Mosquitto Remoto",
+        "broker": "192.168.0.138",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
