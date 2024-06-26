@@ -14,7 +14,7 @@ Esta introdução foi organizada como parte das atividades inaugurais do **PET-L
 - o *broker* Mosquitto; e
 - a ferramenta Node-RED.
 
-Além de uma rápida visão conceitual destes elementos, serão realizadas algumas atividades práticas durante a [apresentação](https://github.com/pet-lab-hub/intro/blob/main/PET_Lab_Labrador_Intro.pdf), na forma de roteiros dirigidos que permitirão uma visão abrangente das muitas possibilidades que **PET-Lab** pretende explorar!
+Além de uma rápida visão conceitual destes elementos, serão realizadas algumas atividades práticas durante as apresentações ([inaugural](https://github.com/pet-lab-hub/intro/blob/main/PET_Lab_Labrador_Intro.pdf) e [extendida](https://github.com/pet-lab-hub/intro/blob/main/PET_Lab_Labrador_Intro_Extended.pdf)), na forma de roteiros dirigidos que permitirão uma visão abrangente das muitas possibilidades que **PET-Lab** pretende explorar!
 
 
 ---
