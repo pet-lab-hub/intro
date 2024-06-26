@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON para Node-RED Simples</title>
+</head>
+<body bgcolor="#E0E0FF">
+    <h1>Enviar dados JSON para Node-RED</h1>
+    <form id="formulario">
+        <table>
+            <tr>
+                <td><label for="t_string">String:</label></td>
+                <td><input type="text" id="t_string" name="t_string" required></td>
+            </tr>
+            <tr>
+                <td><label for="t_int">Número [inteiro]:</label></td>
+                <td><input type="int" id="t_int" name="t_int" required></td>
+            </tr>
+            <tr>
+                <td><hr/><button type="submit">Enviar</button>
+                <p id="status">&nbsp;</p></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Obtém os valores dos inputs
+            const t_string = document.getElementById('t_string').value;
+            const t_int = document.getElementById('t_int').value;
+            // Cria o objeto JSON
+            const data = {
+                'string': t_string,
+                'int': parseInt(t_int)
+            };
+            // Envia o JSON para o Node-RED
+            fetch('http://192.168.0.138:1880/dados', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .catch((error) => {
+                console.error('Erro:', error);
+                document.getElementById('status').textContent = error;
+            });
+        });
+    </script>
+</body>
+</html>
