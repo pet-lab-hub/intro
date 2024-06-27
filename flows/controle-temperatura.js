@@ -1,9 +1,11 @@
-// extrai-temperatura.js
+// controle-temperatura.js
 // Código JavaScript para nó função do fluxo "MQTT Data"
 
 // Na mensagem
 // -----------
-const obj = msg.payload;
-var temp = obj.temperatura;
-msg.payload = temp + '°C/';
+if (msg.payload > 24) {
+	msg.payload = "ligar";
+} else {
+	msg.payload = "desligar";
+}
 return msg;
