@@ -21,7 +21,7 @@ context.set("n_temp", n);
 var media = 0;
 if (n > 0) {
     media = soma / n;
-    msg.payload = media;
+    msg.payload = media.toFixed(2);
 } else {
     msg.payload = "N/D";
 }
