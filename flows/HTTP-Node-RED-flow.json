@@ -1,0 +1,44 @@
+[
+    {
+        "id": "e73cab525a3ed036",
+        "type": "tab",
+        "label": "HTTP & Node-RED",
+        "disabled": false,
+        "info": "Um exemplo de fluxo no Node-RED para \r\nmostrar a recepção de dados oriundos \r\nde um formulário HTTP que usa \r\nJavaScript para criar e enviar \r\num objeto JSON ao Node-RED.\r\n\r\nO fluxo usa nós:\r\n- HTTP in\r\n- debug\r\n\r\nO formulário deve indicar o endereço IP\r\ndo host onde o Node-RED é executado e \r\nutilizar o endpoint /dados.",
+        "env": []
+    },
+    {
+        "id": "48c0888c54313987",
+        "type": "debug",
+        "z": "e73cab525a3ed036",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "counter",
+        "x": 540,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "347da954183a4575",
+        "type": "http in",
+        "z": "e73cab525a3ed036",
+        "name": "",
+        "url": "/dados",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "48c0888c54313987"
+            ]
+        ]
+    }
+]

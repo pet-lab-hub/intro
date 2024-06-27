@@ -1,0 +1,240 @@
+[
+    {
+        "id": "90bd3e7b2d3f816f",
+        "type": "tab",
+        "label": "Temperatura Média",
+        "disabled": false,
+        "info": "Este fluxo obtém dados de um tópico\r\nMQTT (esp02/sensor/aht20/temp) e efetua\r\no cálculo da temperatura média utilizando\r\num nó function. \r\n\r\nTambém possui componentes visuais do tipo\r\ngauge (mostrador analógico) que permitem\r\na visualização (neste exemplo) das medidas \r\nde temperatura atual e temperatura média\r\nem um dashboard (painel de visualização).\r\n\r\nO dashboard é visível em\r\nhttp://<ip_host_node_red>/ui,\r\n\r\npor exemplo:\r\nhttp://10.66.0.15/ui",
+        "env": []
+    },
+    {
+        "id": "829ebc8d8a4a68fb",
+        "type": "mqtt in",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "topic": "esp-02/sensor/aht20/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3866e7aefdba3bf7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 100,
+        "wires": [
+            [
+                "7bd250f9895316f1",
+                "083403e3e993bb8c",
+                "2cfd270b4bfeac24"
+            ]
+        ]
+    },
+    {
+        "id": "7bd250f9895316f1",
+        "type": "function",
+        "z": "90bd3e7b2d3f816f",
+        "name": "Temperatura Média",
+        "func": "// temperatura-media.js\n// Código JavaScript para nó função do fluxo \"Temp-Media\"\n\n// Na mensagem\n// -----------\nvar temp = msg.payload;\nvar soma = context.get(\"soma_temp\") + temp;\ncontext.set(\"soma_temp\", soma);\n\nvar n = 1 + context.get(\"n_temp\");\ncontext.set(\"n_temp\", n);\nvar media = 0;\nif (n > 0) {\n    media = soma / n;\n    msg.payload = media.toFixed(2);\n} else {\n    msg.payload = \"N/D\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// No início\n// ---------\ncontext.set(\"n_temp\", 0);\ncontext.set(\"soma_temp\", 0);\ncontext.set(\"n_temp\", 0);\ncontext.set(\"soma_temp\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "b517086148178760",
+                "db5236e043ebb0dd"
+            ]
+        ]
+    },
+    {
+        "id": "b517086148178760",
+        "type": "debug",
+        "z": "90bd3e7b2d3f816f",
+        "name": "Média Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "9600d529613ce656",
+        "type": "inject",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "25",
+        "payloadType": "num",
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "7bd250f9895316f1"
+            ]
+        ]
+    },
+    {
+        "id": "083403e3e993bb8c",
+        "type": "debug",
+        "z": "90bd3e7b2d3f816f",
+        "name": "Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2cfd270b4bfeac24",
+        "type": "ui_gauge",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "group": "f5539feecc9e2647",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#41a5b9",
+            "#56b832",
+            "#ca3838"
+        ],
+        "seg1": "18",
+        "seg2": "27",
+        "diff": false,
+        "className": "",
+        "x": 510,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0943b787e45b36f1",
+        "type": "comment",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "info": "Este gauge (mostrador analógico) exibe\na medida da temperatura atual no \ndashboard (painel de visualização).\n",
+        "x": 500,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "db5236e043ebb0dd",
+        "type": "ui_gauge",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "group": "f5539feecc9e2647",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Temperatura Média",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#41a5b9",
+            "#56b832",
+            "#ca3838"
+        ],
+        "seg1": "18",
+        "seg2": "27",
+        "diff": false,
+        "className": "",
+        "x": 570,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "90e30eec25ce6ebd",
+        "type": "comment",
+        "z": "90bd3e7b2d3f816f",
+        "name": "",
+        "info": "Este gauge (mostrador analógico) exibe\na medida da temperatura média no \ndashboard (painel de visualização).",
+        "x": 540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3866e7aefdba3bf7",
+        "type": "mqtt-broker",
+        "name": "Mosquitto [local]",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f5539feecc9e2647",
+        "type": "ui_group",
+        "name": "Temperatura",
+        "tab": "f63f1e3c1f6dccf4",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "f63f1e3c1f6dccf4",
+        "type": "ui_tab",
+        "name": "Oficina Pet-Lab",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

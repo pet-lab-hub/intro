@@ -1,0 +1,222 @@
+[
+    {
+        "id": "c594fce704cf32e7",
+        "type": "tab",
+        "label": "Sensor Virtual",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "229379286513d3a5",
+        "type": "inject",
+        "z": "c594fce704cf32e7",
+        "name": "Timer",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "9e5ad07a45ecccef",
+                "604365da3402bb6e"
+            ]
+        ]
+    },
+    {
+        "id": "9e5ad07a45ecccef",
+        "type": "function",
+        "z": "c594fce704cf32e7",
+        "name": "Virtual AHT20",
+        "func": "var sensor_data = [];\nsensor_data.push(context.get(\"min_t\") \n                + Math.random()\n                * (context.get(\"max_t\") - context.get(\"min_t\")));\nsensor_data.push(context.get(\"min_u\") \n                + Math.random()\n                * (context.get(\"max_u\") - context.get(\"min_u\")));\n\nreturn [{\"payload\":sensor_data[0].toFixed(2)},\n        {\"payload\":sensor_data[1].toFixed(2)}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"min_t\", 13);\ncontext.set(\"max_t\", 25);\ncontext.set(\"min_u\", 25);\ncontext.set(\"max_u\", 45);",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "bf29e0bad1e98323",
+                "a90cc2e302764829"
+            ],
+            [
+                "83c96ddc229a09d7",
+                "8fb20a90c99921d7"
+            ]
+        ]
+    },
+    {
+        "id": "bf29e0bad1e98323",
+        "type": "mqtt out",
+        "z": "c594fce704cf32e7",
+        "name": "",
+        "topic": "esp-02/sensor/aht20/temp",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "688c6b82baf3a5ec",
+        "x": 590,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a90cc2e302764829",
+        "type": "debug",
+        "z": "c594fce704cf32e7",
+        "name": "Virtual AHT20[temp]",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "83c96ddc229a09d7",
+        "type": "debug",
+        "z": "c594fce704cf32e7",
+        "name": "Virtual AHT20[umid]",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8fb20a90c99921d7",
+        "type": "mqtt out",
+        "z": "c594fce704cf32e7",
+        "name": "",
+        "topic": "esp-02/sensor/aht20/umid",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "688c6b82baf3a5ec",
+        "x": 590,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "604365da3402bb6e",
+        "type": "function",
+        "z": "c594fce704cf32e7",
+        "name": "Virtual BMP280",
+        "func": "var sensor_data = Object();\nsensor_data.temperatura = (context.get(\"min_t\") \n        + Math.random()\n        * (context.get(\"max_t\") - context.get(\"min_t\")))\n        .toFixed(2);\nsensor_data.pressao = (context.get(\"min_p\") \n        + Math.random()\n        * (context.get(\"max_p\") - context.get(\"min_p\")))\n        .toFixed(2);\nmsg.payload = sensor_data;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"min_t\", 13);\ncontext.set(\"max_t\", 25);\ncontext.set(\"min_p\", 1010);\ncontext.set(\"max_p\", 1020);",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "e44f89cd2d5aad84",
+                "e52b74e3b09ea6a2"
+            ]
+        ]
+    },
+    {
+        "id": "e44f89cd2d5aad84",
+        "type": "debug",
+        "z": "c594fce704cf32e7",
+        "name": "Virtual BMP280 [JSON]",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e52b74e3b09ea6a2",
+        "type": "mqtt out",
+        "z": "c594fce704cf32e7",
+        "name": "",
+        "topic": "esp-02/sensor/bmp280",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "688c6b82baf3a5ec",
+        "x": 580,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "688c6b82baf3a5ec",
+        "type": "mqtt-broker",
+        "name": "Mosquitto Remoto",
+        "broker": "10.66.0.15",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

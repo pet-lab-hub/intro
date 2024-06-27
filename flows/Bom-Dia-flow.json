@@ -1,0 +1,126 @@
+[
+    {
+        "id": "9439eb93854d2224",
+        "type": "tab",
+        "label": "Bom dia!",
+        "disabled": false,
+        "info": "Fluxo simples para exemplificação do uso\r\ndos nós:\r\n - inject\r\n - debug\r\n - function\r\n\r\n Um nó inject injeta um carimbo de \r\n data/hora (timestamp) que é formatado e \r\n exibido no formato \"dd/mm/aa hh:mm\".\r\n\r\n Outro nó inject injeta uma mensagem \r\n (cadeia de caracteres) que é convertida \r\n em maiúsculas.",
+        "env": []
+    },
+    {
+        "id": "2eca12bbb0594b55",
+        "type": "inject",
+        "z": "9439eb93854d2224",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Bom dia!",
+        "payloadType": "str",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "5409b8bbea9619f5"
+            ]
+        ]
+    },
+    {
+        "id": "e2bcb2eaeb9d2a33",
+        "type": "debug",
+        "z": "9439eb93854d2224",
+        "name": "Depuração",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "counter",
+        "x": 510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5409b8bbea9619f5",
+        "type": "function",
+        "z": "9439eb93854d2224",
+        "name": "Maiúsculas",
+        "func": "// maiusculas.js\n// Código JavaScript para nó função do fluxo \"Bom dia\"\n\n// Na mensagem\n// -----------\nvar mensagem = msg.payload;\n// converte mensagem em maiúsculas\nmsg.payload = mensagem.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "e2bcb2eaeb9d2a33"
+            ]
+        ]
+    },
+    {
+        "id": "5806362713aaa2d2",
+        "type": "inject",
+        "z": "9439eb93854d2224",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "e2bcb2eaeb9d2a33",
+                "e3823c27965f89e0"
+            ]
+        ]
+    },
+    {
+        "id": "e3823c27965f89e0",
+        "type": "function",
+        "z": "9439eb93854d2224",
+        "name": "formatar data e hora",
+        "func": "// formatar-data-hora.js\n// Código JavaScript para nó função do fluxo \"Ola\", \"BomDia\"\n\n// Na mensagem\n// -----------\nvar data = new Date(msg.payload);\nvar dia = data.getDate();\nvar mes = data.getMonth() + 1;\nvar ano = data.getFullYear();\nvar hor = data.getHours().toString().padStart(2, '0');\nvar min = data.getMinutes().toString().padStart(2, '0');\nmsg.payload = dia + '/' + mes + '/' + ano\n    + ' ' + hor + ':' + min;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "e2bcb2eaeb9d2a33"
+            ]
+        ]
+    }
+]

@@ -4,7 +4,7 @@
         "type": "tab",
         "label": "Ola!",
         "disabled": false,
-        "info": "Um primeiro exemplo de fluxo no\nNode-RED para mostra interacao\nsimples com o usuario.\n\nUtiliza os nos:\n - inject\n -  debug",
+        "info": "Um primeiro exemplo de fluxo no\nNode-RED para mostrar interação\nsimples com o usuário.\n\nUtiliza os nós:\n - inject\n - debug\n - function",
         "env": []
     },
     {
@@ -86,7 +86,7 @@
         "type": "function",
         "z": "78ea719049bf878e",
         "name": "Formatar Data/Hora",
-        "func": "var data = new Date(msg.payload);\nvar dia = data.getDate();\nvar mes = data.getMonth() + 1;\nvar ano = data.getFullYear();\nvar hor = data.getHours().toString().padStart(2, '0');\nvar min = data.getMinutes().toString().padStart(2, '0');\nmsg.payload = dia + '/' + mes + '/' + ano \n            + ' ' + hor + ':' + min;\nreturn msg;",
+        "func": "// formatar-data-hora.js\n// Código JavaScript para nó função do fluxo \"Ola\"\n\n// Na mensagem\n// -----------\nvar data = new Date(msg.payload);\nvar dia = data.getDate();\nvar mes = data.getMonth() + 1;\nvar ano = data.getFullYear();\nvar hor = data.getHours().toString().padStart(2, '0');\nvar min = data.getMinutes().toString().padStart(2, '0');\nmsg.payload = dia + '/' + mes + '/' + ano\n    + ' ' + hor + ':' + min;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,

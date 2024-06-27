@@ -1,0 +1,126 @@
+[
+    {
+        "id": "e6eb49d6130b8c9a",
+        "type": "tab",
+        "label": "MQTT Count [2]",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e65246609e75c6d5",
+        "type": "mqtt in",
+        "z": "e6eb49d6130b8c9a",
+        "name": "",
+        "topic": "bomdia",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e8e515a4256f6434",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "515584866ecab767"
+            ]
+        ]
+    },
+    {
+        "id": "8716af8f95f60a1c",
+        "type": "mqtt out",
+        "z": "e6eb49d6130b8c9a",
+        "name": "",
+        "topic": "bomdia",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e8e515a4256f6434",
+        "x": 460,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "24d9571df77cb7a5",
+        "type": "inject",
+        "z": "e6eb49d6130b8c9a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Peter",
+        "payloadType": "str",
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "8716af8f95f60a1c"
+            ]
+        ]
+    },
+    {
+        "id": "515584866ecab767",
+        "type": "debug",
+        "z": "e6eb49d6130b8c9a",
+        "name": "Canal do BomDia",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e8e515a4256f6434",
+        "type": "mqtt-broker",
+        "name": "Mosquitto do Peter",
+        "broker": "10.66.0.15",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
