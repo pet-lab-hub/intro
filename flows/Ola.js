@@ -1,6 +1,8 @@
 // Ola.js
 // Código JavaScript para nó função do fluxo "Ola"
 
+// Na mensagem
+// -----------
 var data = new Date(msg.payload);
 var dia = data.getDate();
 var mes = data.getMonth() + 1;
