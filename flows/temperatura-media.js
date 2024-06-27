@@ -13,17 +13,17 @@ context.set("soma_temp", 0);
 // Na mensagem
 // -----------
 var temp = msg.payload;
+// Acrescenta temp à soma_temp e atualiza contexto
 var soma = context.get("soma_temp") + temp;
 context.set("soma_temp", soma);
 
-var n = 1 + context.get("n_temp");
+// Incrementa contagem e atualiza contexto
+var n = context.get("n_temp") + 1;
 context.set("n_temp", n);
+
+// Calcula média e atualiza payload
 var media = 0;
-if (n > 0) {
-    media = soma / n;
-    msg.payload = media.toFixed(2);
-} else {
-    msg.payload = "N/D";
-}
+media = soma / n;
+msg.payload = media.toFixed(2);
 
 return msg;
